@@ -12,5 +12,9 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
+
+    MovieSearchManager().request(from: "스타워즈") { movies in
+      print(movies)
+    }
   }
 }
