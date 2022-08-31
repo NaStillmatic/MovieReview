@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-protocol MoviewSearchManagerProtocol {
+protocol MovieSearchManagerProtocol {
   func request(from keyword: String, completionHandler: @escaping ([Movie]) -> Void)
 }
 

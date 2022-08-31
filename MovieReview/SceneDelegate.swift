@@ -15,9 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              willConnectTo session: UISceneSession,
              options connectionOptions: UIScene.ConnectionOptions) {
     guard let windowScene = (scene as? UIWindowScene) else { return }
-    let viewController = ViewController()
+
     window = UIWindow(windowScene: windowScene)
-    window?.rootViewController = viewController
+    window?.rootViewController = UINavigationController(rootViewController: MovieListViewController())
     window?.makeKeyAndVisible()
   }
 }
