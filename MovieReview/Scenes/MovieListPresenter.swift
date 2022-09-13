@@ -21,6 +21,8 @@ final class MovieListPresenter: NSObject {
 
   private var likedMovie: [Movie] = []
 
+  private var currentMovieSearchResult: [Movie] = []
+
   init(viewController: MovieListProtocol,
        movieSearchManager: MovieSearchManagerProtocol = MovieSearchManager()) {
     self.viewController = viewController
@@ -41,7 +43,15 @@ extension MovieListPresenter: UISearchBarDelegate {
   }
 
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    currentMovieSearchResult = []
     viewController?.updateSearchTableView(isHidden: true)
+  }
+
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    movieSearchManager.request(from: searchText) { [weak self] movies in
+      self?.currentMovieSearchResult = movies
+      self?.viewController?.updateSearchTableView(isHidden: false)
+    }
   }
 }
 
@@ -60,7 +70,6 @@ extension MovieListPresenter: UICollectionViewDataSource {
     }
     let movie = likedMovie[indexPath.row]
     cell.update(movie)
-
     return cell
   }
 }
@@ -87,12 +96,14 @@ extension MovieListPresenter: UITableViewDelegate {}
 
 extension MovieListPresenter: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 3
+    return currentMovieSearchResult.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell()
-    cell.textLabel?.text = "\(indexPath.row)"
+
+    let data = currentMovieSearchResult[indexPath.row]
+    cell.textLabel?.text = data.title
     return cell
   }
 }
