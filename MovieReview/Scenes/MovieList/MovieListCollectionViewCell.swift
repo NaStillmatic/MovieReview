@@ -71,7 +71,7 @@ private extension MovieListCollectionViewCell {
         $0.leading.equalTo(imageView.snp.leading)
         $0.trailing.equalTo(imageView.snp.trailing)
         $0.top.equalTo(titleLabel.snp.bottom).offset(4.0)
-        $0.height.equalToSuperview().inset(8.0)
+        $0.bottom.equalToSuperview().inset(8.0)
       }
     }
   }

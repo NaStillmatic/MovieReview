@@ -8,17 +8,19 @@
 import UIKit
 
 protocol MovieListProtocol: AnyObject {
+
   func setupNavigationBar()
   func settupSearchBar()
   func setupViews()
   func updateSearchTableView(isHidden: Bool)
   func pushToMovieViewController(with movie: Movie)
-
+  func updateCollectionView()
 }
 
 final class MovieListPresenter: NSObject {
 
   private weak var viewController: MovieListProtocol?
+  private let userDefaultsManager: UserDefaultsManagerProtocol
   private let movieSearchManager: MovieSearchManagerProtocol
 
   private var likedMovie: [Movie] = []
@@ -26,15 +28,22 @@ final class MovieListPresenter: NSObject {
   private var currentMovieSearchResult: [Movie] = []
 
   init(viewController: MovieListProtocol,
-       movieSearchManager: MovieSearchManagerProtocol = MovieSearchManager()) {
+       movieSearchManager: MovieSearchManagerProtocol = MovieSearchManager(),
+       userDefaultsManager: UserDefaultsManagerProtocol = UserDefaultsManager()) {
     self.viewController = viewController
     self.movieSearchManager = movieSearchManager
+    self.userDefaultsManager = userDefaultsManager
   }
 
   func viewDidLoad() {
     viewController?.setupNavigationBar()
     viewController?.settupSearchBar()
     viewController?.setupViews()
+  }
+
+  func viewWillAppear() {
+    likedMovie = userDefaultsManager.getMovies()
+    viewController?.updateCollectionView()
   }
 }
 
