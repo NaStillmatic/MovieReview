@@ -32,7 +32,7 @@ struct Movie: Codable {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    title = try container.decodeIfPresent(String.self, forKey: .title) ?? "-"
+    title = (try container.decodeIfPresent(String.self, forKey: .title) ?? "-").withoutHtmlTags
     image = try container.decodeIfPresent(String.self, forKey: .image) ?? "-"
     userRating = try container.decodeIfPresent(String.self, forKey: .userRating) ?? "-"
     actor = try container.decodeIfPresent(String.self, forKey: .actor) ?? "-"
@@ -57,4 +57,10 @@ struct Movie: Codable {
     self.pubDate = pubDate
     self.isLiked = isLiked
   }
+}
+
+extension String {
+    var withoutHtmlTags: String {
+      return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+    }
 }

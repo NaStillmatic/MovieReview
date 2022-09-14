@@ -46,9 +46,11 @@ final class MovieListCollectionViewCell: UICollectionViewCell {
 private extension MovieListCollectionViewCell {
   func setupView() {
     layer.cornerRadius = 12.0
-    layer.shadowColor = UIColor.systemBackground.cgColor
+    layer.shadowColor = UIColor.black.cgColor
     layer.shadowOpacity = 0.1
     layer.shadowRadius = 8.0
+
+    backgroundColor = .systemBackground
   }
 
   func setuplayout() {
