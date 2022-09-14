@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class MoviewDetailViewController: UIViewController {
+final class MovieDetailViewController: UIViewController {
 
   private var presenter: MovieDetailPresenter!
 
@@ -41,7 +41,7 @@ final class MoviewDetailViewController: UIViewController {
   }
 }
 
-extension MoviewDetailViewController: MovieDetailProtocol {
+extension MovieDetailViewController: MovieDetailProtocol {
 
   func setViews(with movie: Movie) {
     view.backgroundColor = .systemBackground
@@ -96,7 +96,7 @@ extension MoviewDetailViewController: MovieDetailProtocol {
   }
 }
 
-extension MoviewDetailViewController {
+extension MovieDetailViewController {
 
   @objc func didTapRightBarButtonItem() {
     presenter.didTapRightBarButtonItem()
